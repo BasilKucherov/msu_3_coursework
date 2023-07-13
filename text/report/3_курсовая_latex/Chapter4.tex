@@ -1,0 +1,20 @@
+\section{Программная реализация}
+\label{sec:Chapter4} \index{Chapter4}
+
+Для выполнения поставленной задачи использовался язык Python 3. Основной библиотекой для построения и обучения моделей стал PyTorch. В ходе работы были реализованы следующие компоненты:
+\begin{itemize}
+    \item Функции потерь
+    \begin{itemize}
+        \item Triplet Loss
+        \item N-pair loss
+        \item Lifted-Structured Loss
+    \end{itemize}
+    \item Функции для формирования пакетов (батчей) для каждой из перечисленных функций потерь
+    \item Метрики качества кластеризации
+    \begin{itemize}
+        \item FC - feature clustering
+        \item HC - hyperplane variation
+    \end{itemize}
+\end{itemize}
+
+Эксперименты проводились на платформе Jupyter Notebook на локальной машине с использованием видеокарты Nvidia RTX 3060 TI 8GB.

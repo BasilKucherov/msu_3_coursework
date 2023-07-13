@@ -1,0 +1,89 @@
+\documentclass[oneside,senior,etd]{BYUPhysForDegree}
+
+\usepackage[utf8]{inputenc}
+\usepackage{rotating} 
+
+% MY PACKAGES
+\usepackage{indentfirst}
+
+\usepackage[russian]{babel}
+\usepackage{amsfonts} % Пакеты для математических символов и теорем
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx} % Пакеты для вставки графики
+\usepackage{subfig}
+\usepackage{color}
+\usepackage[unicode]{hyperref}
+\usepackage[nottoc]{tocbibind} % Для того, чтобы список литературы отображался в оглавлении
+\usepackage{algorithmic} % Для записи алгоритмов в псевдокоде
+\usepackage{algorithm}
+\usepackage{verbatim} % Для вставок заранее подготовленного текста в режиме as-is
+\usepackage{listings}
+
+\usepackage{commath}
+\newcommand\Tau{\mathcal{T}}
+\newcommand{\R}{\mathbb{R}}
+\usepackage{color}
+\usepackage[colorinlistoftodos, prependcaption]{todonotes}
+\usepackage{multirow}
+\newcommand*{\MyIndent}{\hspace*{0.2cm}}%
+
+\Chair{Кафедра суперкомпьютеров и квантовой информатики}
+\Lab{~}
+\Year{2023}
+  \Month{}
+  \City{Москва}
+  \AuthorText{Автор}
+  \Author{Кучеров Василий Дмитриевич}
+  \AuthorEng{}
+  \AcadGroup{323}
+  % Если вы не Пупкин Василий Иванович, то скопируйте себе этот проект через меню и уже потом правьте
+  \TitleTop{Анализ влияния выбора функции потерь на}
+  %\TitleMiddle{}
+  \TitleBottom{эффективность обучения по нескольким примерам} % leave empty if you don't need it
+  \TitleTopEng{}
+  \TitleBottomEng{} % leave empty if you don't need it  
+  \docname{Курсовая работа}
+  %\docname{Выпускная квалификационная работа}
+  %\docname{Магистерская диссертация}
+  \Advisor{Буряк Дмитрий Юрьевич}  
+  \AdvisorDegree{к.ф.-м.н.}
+  % \Consultant{}
+  % \ConsultantDegree{}
+  
+% \Abstract{Краткое описание задачи и основных результатов, мотивирующее прочитать весь текст}
+% \AbstractEng{Abstract}
+
+
+%%%% DON'T change this. It is here because .sty does not support cyrillic cp properly %%%%
+\University{Московский государственный университет имени М.В.Ломоносова}
+\Faculty{Факультет вычислительной математики и кибернетики}
+\GrText{гр.}
+\AdvisorText{Научный руководитель}
+% \ConsultantText{}
+% \AbstractText{}
+
+\begin{document}
+\fixmargins
+\makepreliminarypages
+
+\oneandhalfspace
+
+\tableofcontents
+
+\include{Chapter0} % Введение
+\include{Chapter1} % Обзор существующих решений
+\include{Chapter2} % Постановка задачи
+\include{Chapter3} % Один или несколько пунктов, посвященных детальному описанию тех решений, которые Вы разработали/реализовали
+\include{Chapter4} % Программная реализация
+\include{Chapter5} % Эксперименты
+\include{Chapter6} %  Выводы 
+
+\nocite{*}
+\bibliographystyle{gost71u} % Для соответствия требованиям об оформлении списка литературы
+\bibliography{references}
+
+% \include{Appendix} 
+
+\end{document}
