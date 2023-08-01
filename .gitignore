@@ -1,6 +1,7 @@
-/code/databases/
-/code/experiment_1(garbage)/
-/code/experiment_2(garbage)/
+/done/code/databases/
+/done/code/experiment_1(garbage)/
+/done/code/experiment_2(garbage)/
 
 *.DS_Store
 __pycache__
+.venv
