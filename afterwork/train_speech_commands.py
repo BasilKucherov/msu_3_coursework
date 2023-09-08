@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 """Train a CNN for Google speech commands."""
 
-__author__ = 'Yuan Xu, Erdene-Ochir Tuguldur'
-
 import argparse
 import time
 

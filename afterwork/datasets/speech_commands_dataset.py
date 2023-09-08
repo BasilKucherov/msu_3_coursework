@@ -8,40 +8,30 @@ import librosa
 
 from torch.utils.data import Dataset
 
-__all__ = [ 'CLASSES', 'SpeechCommandsDataset', 'BackgroundNoiseDataset' ]
-
-CLASSES = 'unknown, silence, yes, no, up, down, left, right, on, off, stop, go'.split(', ')
-
 class SpeechCommandsDataset(Dataset):
-    """Google speech commands dataset. Only 'yes', 'no', 'up', 'down', 'left',
-    'right', 'on', 'off', 'stop' and 'go' are treated as known classes.
-    All other classes are used as 'unknown' samples.
-    See for more information: https://www.kaggle.com/c/tensorflow-speech-recognition-challenge
-    """
-
-    def __init__(self, folder, transform=None, classes=CLASSES, silence_percentage=0.1):
+    def __init__(self, folder, transform=None):
         all_classes = [d for d in os.listdir(folder) if os.path.isdir(os.path.join(folder, d)) and not d.startswith('_')]
-        #for c in classes[2:]:
-        #    assert c in all_classes
+        all_classes.sort()
 
-        class_to_idx = {classes[i]: i for i in range(len(classes))}
-        for c in all_classes:
-            if c not in class_to_idx:
-                class_to_idx[c] = 0
-
+        self.class_to_idx = {all_classes[i]: i for i in range(len(all_classes))}
+        self.idx_to_class = {idx: c for c, idx in self.class_to_idx.items()} 
+        
+        self.indices = [[] for _ in range(len(self.all_classes))]
+ 
         data = []
+        cur_idx = 0
+
         for c in all_classes:
             d = os.path.join(folder, c)
-            target = class_to_idx[c]
+            target = self.class_to_idx[c]
             for f in os.listdir(d):
                 path = os.path.join(d, f)
                 data.append((path, target))
 
-        # add silence
-        target = class_to_idx['silence']
-        data += [('', target)] * int(len(data) * silence_percentage)
+                self.indices[c].append(cur_idx)
+                cur_idx += 1
 
-        self.classes = classes
+        self.classes = all_classes
         self.data = data
         self.transform = transform
 
@@ -56,6 +46,16 @@ class SpeechCommandsDataset(Dataset):
             data = self.transform(data)
 
         return data
+
+    def get_class_idx(self, idx):
+        if idx in self.idx_to_class.keys():
+            return self.idx_to_class[idx]
+        return 'unknown'
+    
+    def get_idx_class(self, c):
+        if c in self.class_to_idx.keys():
+            return self.class_to_idx[c]
+        return -1
 
     def make_weights_for_balanced_classes(self):
         """adopted from https://discuss.pytorch.org/t/balanced-sampling-between-classes-with-torchvision-dataloader/2703/3"""
@@ -88,7 +88,6 @@ class BackgroundNoiseDataset(Dataset):
         r = len(samples) // c
         self.samples = samples[:r*c].reshape(-1, c)
         self.sample_rate = sample_rate
-        self.classes = CLASSES
         self.transform = transform
         self.path = folder
 
