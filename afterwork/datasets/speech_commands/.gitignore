@@ -1,4 +1,4 @@
 speech_commands/
 test/
 train/
-valid/
+validation/
