@@ -2,3 +2,4 @@ speech_commands/
 test/
 train/
 validation/
+_background_noise_/
