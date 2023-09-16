@@ -10,10 +10,12 @@ from torch.utils.data import Dataset
 
 class SpeechCommandsDataset(Dataset):
     def __init__(self, folder, transform=None):
-        all_classes = [d for d in os.listdir(folder) if os.path.isdir(os.path.join(folder, d)) and not d.startswith('_')]
-        all_classes.sort()
+        self.all_classes = [d for d in os.listdir(folder) if os.path.isdir(os.path.join(folder, d)) and not d.startswith('_')]
+        self.all_classes.sort()
 
-        self.class_to_idx = {all_classes[i]: i for i in range(len(all_classes))}
+        # print(self.all_classes)
+
+        self.class_to_idx = {self.all_classes[i]: i for i in range(len(self.all_classes))}
         self.idx_to_class = {idx: c for c, idx in self.class_to_idx.items()} 
         
         self.indices = [[] for _ in range(len(self.all_classes))]
@@ -21,17 +23,17 @@ class SpeechCommandsDataset(Dataset):
         data = []
         cur_idx = 0
 
-        for c in all_classes:
+        for c in self.all_classes:
             d = os.path.join(folder, c)
             target = self.class_to_idx[c]
             for f in os.listdir(d):
                 path = os.path.join(d, f)
                 data.append((path, target))
 
-                self.indices[c].append(cur_idx)
+                self.indices[target].append(cur_idx)
                 cur_idx += 1
 
-        self.classes = all_classes
+        self.classes = self.all_classes
         self.data = data
         self.transform = transform
 

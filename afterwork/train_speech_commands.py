@@ -28,7 +28,7 @@ parser.add_argument("--train-dataset", type=str, default='datasets/speech_comman
 parser.add_argument("--valid-dataset", type=str, default='datasets/speech_commands/valid', help='path of validation dataset')
 parser.add_argument("--background-noise", type=str, default='datasets/speech_commands/train/_background_noise_', help='path of background noise')
 parser.add_argument("--comment", type=str, default='', help='comment in tensorboard title')
-parser.add_argument("--batch-size", type=int, default=128, help='batch size')
+parser.add_argument("--batch-size", type=int, default=32, help='batch size')
 parser.add_argument("--dataload-workers-nums", type=int, default=6, help='number of workers for dataloader')
 parser.add_argument("--weight-decay", type=float, default=1e-2, help='weight decay')
 parser.add_argument("--optim", choices=['sgd', 'adam'], default='sgd', help='choices of optimization algorithms')
@@ -75,7 +75,6 @@ train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, sampler
                               pin_memory=use_gpu, num_workers=args.dataload_workers_nums)
 valid_dataloader = DataLoader(valid_dataset, batch_size=args.batch_size, shuffle=False,
                               pin_memory=use_gpu, num_workers=args.dataload_workers_nums)
-
 
 # a name used to save checkpoints etc.
 full_name = '%s_%s_%s_bs%d_lr%.1e_wd%.1e' % (args.model, args.optim, args.lr_scheduler, args.batch_size, args.learning_rate, args.weight_decay)

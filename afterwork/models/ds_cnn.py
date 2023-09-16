@@ -3,7 +3,7 @@ import torch.nn.functional as F
 import torch
 
 class DSCNN(nn.Module):
-    def __init__(self, num_classes, in_channels):
+    def __init__(self, num_classes, in_channels, shape=(32, 32)):
         super(DSCNN, self).__init__()
         
         # C(64,10,4,2,2) // features,kernel size (time, freq), stride (time, freq)
@@ -30,7 +30,7 @@ class DSCNN(nn.Module):
         self.conv_point_4 = nn.Conv2d(in_channels=64, out_channels=64, kernel_size=1, padding='same')
         self.ds_bn_42 = nn.BatchNorm2d(64)
         # Avg Pool
-        self.pool = nn.AvgPool2d((40, 32))
+        self.pool = nn.AvgPool2d(shape)
 
         # fc
         self.fc =  nn.Linear(64, num_classes)
